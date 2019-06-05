@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Tomas Wegenast</Authors>
+    <Product>cfgConfig</Product>
+    <Description>Helps you creating configuration files</Description>
+    <Copyright>Tomas Wegenast - Copyright © 2019</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/Tomi-15/cfgConfig</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Tomi-15/cfgConfig</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>E:\Bitture\Software\Repositories\cfgConfig\src\cfgConfig.Core\cfgConfig.Core.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>E:\Bitture\Software\Repositories\cfgConfig\src\cfgConfig.Core\cfgConfig.Core.xml</DocumentationFile>
+    <OutputPath>E:\Bitture\Software\Repositories\cfgConfig\builds\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+</Project>

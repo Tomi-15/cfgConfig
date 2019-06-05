@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>cfgConfig.Core</name>
+    </assembly>
+    <members>
+        <member name="T:cfgConfig.Core.Attributes.ConfigAttribute">
+            <summary>
+            Attribute that a class must has to define it as configuration
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Attributes.ConfigAttribute.Name">
+            <summary>
+            The name of the configuration
+            </summary>
+        </member>
+        <member name="T:cfgConfig.Core.ConfigurationManager">
+            <summary>
+            Creates a new manager to handle configurations
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.ConfigurationManager.Implementations">
+            <summary>
+            Property that is used to implement new configurations to the manager
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.ConfigurationManager.Make(System.String,System.Boolean)">
+            <summary>
+            Creates a new <see cref="T:cfgConfig.Core.ConfigurationManager"/>
+            </summary>
+            <param name="path">The path to the folder where the config files will be stored</param>
+            <param name="useConsole">If its true, instead of throwing exceptions when something happens, it will send a message to the console. Otherwise, it will throw an exception.</param>
+        </member>
+        <member name="T:cfgConfig.Core.Exceptions.BadConfigTypeException">
+            <summary>
+            Thrown when a class that is not marked as Config is tried to be
+            implemented as one of it
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Exceptions.BadConfigTypeException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:cfgConfig.Core.Exceptions.BadConfigTypeException"/> exception with an error message
+            </summary>
+            <param name="message">The error message</param>
+        </member>
+        <member name="T:cfgConfig.Core.Exceptions.DuplicatedConfigException">
+            <summary>
+            Thrown when a configuration type is tried to be added when
+            its already implemented
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Exceptions.DuplicatedConfigException.#ctor(System.String)">
+            <summary>
+             Initializes a new instance of the <see cref="T:cfgConfig.Core.Exceptions.DuplicatedConfigException"/> class.
+            </summary>
+            <param name="message">The error message</param>
+        </member>
+        <member name="T:cfgConfig.Core.Implementation.Base.ConfigImplementer">
+            <summary>
+            Reponsable class that implements configuration types
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Implementation.Base.ConfigImplementer.Implement``1">
+            <summary>
+            Implements a configuration type
+            </summary>
+            <typeparam name="TConfig">The type of config to implement</typeparam>
+        </member>
+        <member name="M:cfgConfig.Core.Implementation.Base.ConfigImplementer.Implement(System.Type)">
+            <summary>
+            Implements a configuration type
+            </summary>
+            <param name="configType">The type of config to implement</param>
+        </member>
+        <member name="M:cfgConfig.Core.Implementation.Base.ConfigImplementer.GetConfigImplementations">
+            <summary>
+            Gets all config implementations
+            </summary>
+        </member>
+    </members>
+</doc>
