@@ -4,7 +4,7 @@ namespace cfgConfig.Core.Engine
 {
     internal static class Logger
     {
-        public static void Log(string message)
+        public static void LogInfo(string message)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write($"[{DateTime.Now.ToString("HH:mm:ss")}] [CONFIGURATION] ");
