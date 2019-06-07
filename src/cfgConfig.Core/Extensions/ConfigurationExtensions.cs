@@ -22,7 +22,7 @@ namespace cfgConfig.Core.Extensions
                 throw new ConfigNotFoundException($"Configuration of type {typeof(TConfig).ToString()} not found.");
 
             // Save implementation
-            manager.Implementations.SaveImplementation<TConfig>();
+            manager.Implementations.SaveImplementation(typeof(TConfig));
         }
     }
 }

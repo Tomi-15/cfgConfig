@@ -106,9 +106,9 @@ namespace cfgConfig.Core
             foreach (var manager in mCreatedManagers)
             {
                 // Save all implementations
-                manager.Implementations.SaveImplementations();
+                manager.Implementations.SaveAllImplementations();
 
-                Logger.LogInfo($"Saved {manager.Implementations.Count} implementations for the manager {manager.Identifier}");
+                Logger.LogInfo($"Saved {manager.Implementations.Count} implementations for the manager '{manager.Identifier}'.");
             }
         }
 

@@ -148,44 +148,43 @@ namespace cfgConfig.Core.Implementation.Base
         /// <typeparam name="TConfig">The type of configuration to check</typeparam>
         public bool Has<TConfig>() => mConfigImplementations.Any(x => x.Type == typeof(TConfig));
 
+        #region Internal
+
         /// <summary>
         /// Saves all types
         /// </summary>
-        internal void SaveImplementations()
+        internal void SaveAllImplementations()
         {
             // Foreach implementation...
-            foreach(var implementation in mConfigImplementations)
-            {
-                // If the file does not exists, create it
-                if (!implementation.File.Exists)
-                    implementation.File.Create();
-
-                // String to store the serialized content
-                string serialized = GetSerializedContent(implementation.RuntimeInstance, mManager.Settings.SaveMode);
-
-                // Write all the content to the file
-                File.WriteAllText(implementation.File.FullName, serialized);
-            }
+            foreach (var implementation in mConfigImplementations)
+                SaveImplementation(implementation.Type);
         }
 
         /// <summary>
-        /// Saves an specific configuration type
+        /// Saves an implementation
         /// </summary>
-        /// <typeparam name="TConfig">The configuration type to save</typeparam>
-        internal void SaveImplementation<TConfig>()
+        internal void SaveImplementation(Type type)
         {
             // If the configuration type does not exists, throw exception
-            if (!mConfigImplementations.Any(x => x.Type == typeof(TConfig)))
-                throw new ConfigNotFoundException($"Configuration of type {typeof(TConfig).ToString()} does not exists.");
+            if (!mConfigImplementations.Any(x => x.Type == type))
+                throw new ConfigNotFoundException($"Configuration of type {type.ToString()} does not exists.");
 
             // Get config
-            var config = mConfigImplementations.First(x => x.Type == typeof(TConfig));
+            var config = mConfigImplementations.First(x => x.Type == type);
+
+            // If the file does not exists, create its
+            if (!config.File.Exists)
+                config.File.Create();
 
             // Get the serialized content
             string serializedContent = GetSerializedContent(config.RuntimeInstance, mManager.Settings.SaveMode);
 
             // Write all the content to the file
             File.WriteAllText(config.File.FullName, serializedContent);
+
+            // If the encryptation is enabled, encrypt the file
+            if (mManager.Settings.EncryptationEnabled)
+                config.File.Encrypt();
         }
 
         /// <summary>
@@ -205,6 +204,8 @@ namespace cfgConfig.Core.Implementation.Base
         /// Gets all config implementations
         /// </summary>
         internal BaseConfigImplementation[] GetConfigImplementations() => mConfigImplementations.AsReadOnly().ToArray();
+
+        #endregion
 
         #endregion
 
@@ -244,6 +245,10 @@ namespace cfgConfig.Core.Implementation.Base
             // If the file exists and contains data...
             if(implementation.File.Exists && File.ReadAllText(implementation.File.FullName).Length > 0)
             {
+                // If the encryptation is enabled, decrypt the file
+                if(mManager.Settings.EncryptationEnabled)
+                    implementation.File.Decrypt();
+
                 // Get serializer mode
                 var saveMode = mManager.Settings.SaveMode;
 
@@ -284,6 +289,10 @@ namespace cfgConfig.Core.Implementation.Base
             {
                 // Get serializer mode
                 var saveMode = mManager.Settings.SaveMode;
+
+                // Decrypt the file if encryptation is enabled
+                if (mManager.Settings.EncryptationEnabled)
+                    implementation.File.Decrypt();
 
                 switch (saveMode)
                 {

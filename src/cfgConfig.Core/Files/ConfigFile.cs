@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using cfgConfig.Core.Encryptation;
+using cfgConfig.Core.Engine;
+using System.IO;
 
 namespace cfgConfig.Core.Files
 {
@@ -23,6 +25,11 @@ namespace cfgConfig.Core.Files
         /// Indicates if the file exists
         /// </summary>
         public bool Exists { get; set; }
+
+        /// <summary>
+        /// Indicates if the file is encrypted or not
+        /// </summary>
+        public bool Encrypted { get; set; }
 
         #endregion
 
@@ -57,6 +64,58 @@ namespace cfgConfig.Core.Files
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Encrypts the file
+        /// </summary>
+        public void Encrypt()
+        {
+            // Move the file to a temp location
+            string tempFilePath = Path.GetTempFileName(); // Get temp location
+            try
+            {
+                // Delete file if already exists
+                if (File.Exists(tempFilePath))
+                    File.Delete(tempFilePath);
+
+                File.Move(FullName, tempFilePath); // Move the file
+                AES.EncryptFile(tempFilePath, FullName, "myPassword"); // Decrypt the file ytHJjaat6NnbyDPHu334Khz3LS8TMGjM
+                Logger.LogInfo($"File {Name} encrypted.");
+            }
+            catch
+            {
+                throw;
+            }
+
+            // Delete the file
+            File.Delete(tempFilePath);
+        }
+
+        /// <summary>
+        /// Decrypts the file
+        /// </summary>
+        public void Decrypt()
+        {
+            // Move encrypted file to a temp location
+            string tempFilePath = Path.Combine(Path.GetTempPath(), Name + ".encrypted");
+            try
+            {
+                // Delete file if exists
+                if (File.Exists(tempFilePath))
+                    File.Delete(tempFilePath);
+
+                File.Move(FullName, tempFilePath); // Move the file
+                AES.DecryptFile(tempFilePath, FullName, "myPassword"); // Decrypt the file
+                Logger.LogInfo($"File {Name} decrypted.");
+            }
+            catch
+            {
+                throw;
+            }
+
+            // Delete temp file
+            File.Delete(tempFilePath);
         }
 
         #endregion

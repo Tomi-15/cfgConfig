@@ -14,6 +14,22 @@
             The name of the configuration
             </summary>
         </member>
+        <member name="M:cfgConfig.Core.Encryptation.AES.EncryptFile(System.String,System.String,System.String)">
+            <summary>
+            Encrypts a file
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Encryptation.AES.DecryptFile(System.String,System.String,System.String)">
+            <summary>
+            Decrypts a file
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Encryptation.AES.GenerateRandomSalt">
+            <summary>
+            Creates a random salt that will be used to encrypt
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:cfgConfig.Core.ConfigurationManager">
             <summary>
             Creates a new manager to handle configurations
@@ -180,6 +196,11 @@
             Indicates if the file exists
             </summary>
         </member>
+        <member name="P:cfgConfig.Core.Files.ConfigFile.Encrypted">
+            <summary>
+            Indicates if the file is encrypted or not
+            </summary>
+        </member>
         <member name="M:cfgConfig.Core.Files.ConfigFile.#ctor(System.String)">
             <summary>
             Creates a new ConfigFile
@@ -189,6 +210,16 @@
         <member name="M:cfgConfig.Core.Files.ConfigFile.Create">
             <summary>
             Creates the file
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Files.ConfigFile.Encrypt">
+            <summary>
+            Encrypts the file
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Files.ConfigFile.Decrypt">
+            <summary>
+            Decrypts the file
             </summary>
         </member>
         <member name="T:cfgConfig.Core.Files.SaveModes">
@@ -294,16 +325,15 @@
             </summary>
             <typeparam name="TConfig">The type of configuration to check</typeparam>
         </member>
-        <member name="M:cfgConfig.Core.Implementation.Base.ConfigImplementer.SaveImplementations">
+        <member name="M:cfgConfig.Core.Implementation.Base.ConfigImplementer.SaveAllImplementations">
             <summary>
             Saves all types
             </summary>
         </member>
-        <member name="M:cfgConfig.Core.Implementation.Base.ConfigImplementer.SaveImplementation``1">
+        <member name="M:cfgConfig.Core.Implementation.Base.ConfigImplementer.SaveImplementation(System.Type)">
             <summary>
-            Saves an specific configuration type
+            Saves an implementation
             </summary>
-            <typeparam name="TConfig">The configuration type to save</typeparam>
         </member>
         <member name="M:cfgConfig.Core.Implementation.Base.ConfigImplementer.GetImplementation``1">
             <summary>
