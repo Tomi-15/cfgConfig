@@ -4,5 +4,14 @@ configurations files for your applications.
 
 > It's cross-platform so you can use it in Xamarin, .NET Core, Mono and .NET Framework projects
 
-## Alt-H1
-======
+
+
+## Features
+- Secured configuration files using AES encryptation
+- Backup system
+- Auto save
+- Different serialization methods
+- Fully configurable
+- MVVM compatible
+
+## Installation
