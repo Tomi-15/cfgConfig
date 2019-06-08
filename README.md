@@ -15,15 +15,19 @@ configurations files for your applications.
 - MVVM compatible
 
 ## Installation
-You can install the latest version of cfgConfig via **Nuget**
+You can install the latest version of cfgConfig via **Nuget Package Manager**
 
 ``` Shell
 PM nuget install
 ```
 
-
 Optionally, you can specify that you will use a console to log errors and information messages:
-``` C#
+``` csharp
 ConfigurationManager.UseConsole();
 ```
-You have to call it at the beginning of your program 
+Otherwise, exceptions will be thrown when any error occurs. You have to call it at the beginning of your program 
+
+## Usage
+Before start creating configurations, you need a Configuration Manager. Each Configuration Manager can handle one directory where all configuration files will be stored.
+
+    ### Create a Configuration Manager
