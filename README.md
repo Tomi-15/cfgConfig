@@ -44,6 +44,22 @@ To create a Configuration Manager, you will use the ```ConfigurableManager``` cl
 var preManager = ConfigurableManager.Make("AppData\\Roaming\\MyApp\\Settings", "myManager");
 ```
 
-You can configure the Configuration Manager using the ```Configure(Action<ConfigurationManagerSettings>)``` method, which take one parameter:
+#### Configuring the Configuration Manager
+---
+To configure the manager, you have to use the ```Configure(Action<ConfigurationManagerSettings>)``` method, which take one parameter:
 
-`settings` **Action<ConfigurationManagerSettings>**
+`settings` **Action{T}** *where T is ConfigurationManagerSettings*
+>The action that is used to configure the manager
+
+```csharp
+preManager.Configure(settings => 
+{
+    settings.WithSaveMode(SavesMode.Json)
+            .WithAutoSaveEach(TimeSpan.FromMinutes(5))
+            .Encrypt();
+});
+```
+
+The ```ConfigurationManagerSettings``` provides methods to configure the Configuration Manager to your needs:
+
+`WithSaveMode(SavesMode)` **Specifies the serialization method that the manager will use to serialize configurations**
