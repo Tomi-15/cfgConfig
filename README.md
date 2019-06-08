@@ -62,4 +62,5 @@ preManager.Configure(settings =>
 
 The ```ConfigurationManagerSettings``` provides methods to configure the Configuration Manager to your needs:
 
-`WithSaveMode(SavesMode)` **Specifies the serialization method that the manager will use to serialize configurations**
+`WithSaveMode(SavesMode)` 
+> **Specifies the serialization method that the manager will use to serialize configurations**
