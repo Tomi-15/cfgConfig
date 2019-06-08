@@ -30,4 +30,5 @@ Otherwise, exceptions will be thrown when any error occurs. You have to call it 
 ## Usage
 Before start creating configurations, you need a Configuration Manager. Each Configuration Manager can handle one directory where all configuration files will be stored.
 
-    ### Create a Configuration Manager
+#### Create a Configuration Manager
+---
