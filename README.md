@@ -20,3 +20,10 @@ You can install the latest version of cfgConfig via **Nuget**
 ``` Shell
 PM nuget install
 ```
+
+
+Optionally, you can specify that you will use a console to log errors and information messages:
+``` C#
+ConfigurationManager.UseConsole();
+```
+You have to call it at the beginning of your program 
