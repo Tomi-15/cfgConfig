@@ -35,8 +35,10 @@ Before start creating configurations, you need a Configuration Manager. Each Con
 To create a Configuration Manager, you will use the ```ConfigurableManager``` class and the ```Make(string, string)``` method, which take two arguments:
 
 `path` **String**
+>The path of the directory where the Configuration Manager will store configuration files
 
-The path of the directory where the Configuration Manager will store configuration files
+`identifier` **String**
+>An unique identifier name for the manager
 
 ``` csharp
 var manager = ConfigurableManager.Make($"{Directory.GetCurrentDirectory()}\\Settings", "myManager")
