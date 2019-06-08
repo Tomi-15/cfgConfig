@@ -32,3 +32,17 @@ Before start creating configurations, you need a Configuration Manager. Each Con
 
 #### Create a Configuration Manager
 ---
+To create a Configuration Manager, you will use the ```ConfigurableManager``` class and the ```Make(string, string)``` method, which take two arguments:
+
+`path` **String**
+
+``` csharp
+var manager = ConfigurableManager.Make($"{Directory.GetCurrentDirectory()}\Settings", "myManager")
+                                             .Configure(settings =>
+                                             {
+                                                settings
+                                                 .WithAutoSaveEach(TimeSpan.FromMinutes(30))
+                                                 .WithSaveMode(SaveModes.Json);
+
+                                             }).Build();
+```
