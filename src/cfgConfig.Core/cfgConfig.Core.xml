@@ -104,6 +104,12 @@
             </summary>
             <param name="configType">The type of configuration to get</param>
         </member>
+        <member name="M:cfgConfig.Core.ConfigurationManager.RestoreLastBackup">
+            <summary>
+            Restores the configurations from a backup file. Once restore is completed, all backup files will be deleted.
+            NOTE: This must be called one time, and then, remove the line from the code
+            </summary>
+        </member>
         <member name="M:cfgConfig.Core.ConfigurationManager.ToString">
             <summary>
             Returns an string representation of the manager that contains

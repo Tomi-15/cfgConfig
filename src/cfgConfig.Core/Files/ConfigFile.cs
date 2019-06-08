@@ -1,7 +1,6 @@
 ﻿using cfgConfig.Core.Encryptation;
 using cfgConfig.Core.Engine;
-using System.Collections;
-using System.Collections.Generic;
+using cfgConfig.Core.Engine.Settings;
 using System.IO;
 
 namespace cfgConfig.Core.Files
@@ -47,6 +46,7 @@ namespace cfgConfig.Core.Files
             Name = fi.Name;
             FullName = fi.FullName;
             Exists = fi.Exists;
+            Encrypted = Path.GetExtension(FullName) == GlobalSettings.DEFAULT_CRYPTO_EXTENSION;
         }
 
         #endregion
@@ -74,13 +74,13 @@ namespace cfgConfig.Core.Files
         public string[] GetLines()
         {
             // Decrypt the file
-            //Decrypt();
+            Decrypt();
 
             // Read all lines
             string[] lines = File.ReadAllLines(FullName);
 
             // Encrypt again
-            //Encrypt();
+            Encrypt();
 
             return lines;
         }
@@ -99,6 +99,7 @@ namespace cfgConfig.Core.Files
                     File.Delete(tempFilePath);
 
                 File.Move(FullName, tempFilePath); // Move the file
+                FullName = FullName.Replace(GlobalSettings.DEFAULT_EXTENSION, GlobalSettings.DEFAULT_CRYPTO_EXTENSION);
                 AES.EncryptFile(tempFilePath, FullName, "myPassword"); // Decrypt the file ytHJjaat6NnbyDPHu334Khz3LS8TMGjM
                 Logger.LogInfo($"File {Name} encrypted.");
             }
@@ -125,6 +126,7 @@ namespace cfgConfig.Core.Files
                     File.Delete(tempFilePath);
 
                 File.Move(FullName, tempFilePath); // Move the file
+                FullName = FullName.Replace(GlobalSettings.DEFAULT_CRYPTO_EXTENSION, GlobalSettings.DEFAULT_EXTENSION);
                 AES.DecryptFile(tempFilePath, FullName, "myPassword"); // Decrypt the file
                 Logger.LogInfo($"File {Name} decrypted.");
             }

@@ -4,6 +4,8 @@
     {
         public const string DEFAULT_EXTENSION = ".bucfg";
 
+        public const string DEFAULT_CRYPTO_EXTENSION = ".bccfg";
+
         public static bool UseConsole { get; set; }
     }
 }

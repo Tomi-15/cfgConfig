@@ -181,6 +181,11 @@ namespace cfgConfig.Core
             mBackupManager.ConfigureBackupForManager(this, System.IO.Path.Combine(Path, "Backups"));
         }
 
+        internal void SetupEncryptation()
+        {
+            Encryptation = true;
+        }
+
         #endregion
 
         #region Overriden
@@ -281,7 +286,7 @@ namespace cfgConfig.Core
             // Set settings
             configManager.SetupAutoSave(Settings.AutoSaveTimeout); // Configure auto save
             configManager.SaveMode = Settings.SaveMode; // Serialization mode
-            configManager.Encryptation = Settings.EncryptationEnabled; // Encryptation 
+            if(mSettings.EncryptationEnabled) configManager.SetupEncryptation(); // Encryptation 
             if(Settings.CreateBackups) configManager.SetupBackups(); // Configure backups
 
             // Add the manager

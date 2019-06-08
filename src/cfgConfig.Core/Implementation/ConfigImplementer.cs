@@ -82,7 +82,13 @@ namespace cfgConfig.Core.Implementation.Base
             // Configure the implementation
             implementation.Name = configAttribute.Name != null ? configAttribute.Name : configType.Name; // Set the name
             implementation.Type = configType; // Set type
-            implementation.File = new ConfigFile(Path.Combine(mManager.Path, $"{implementation.Name}{GlobalSettings.DEFAULT_EXTENSION}"));
+
+            // Check if its needs migration
+            int migrationNeeded = MigrationNeeded(implementation);
+            if (migrationNeeded != 0)
+                MigrateFiles(migrationNeeded, implementation); // Migrate if necessary
+            else
+                implementation.File = new ConfigFile(Path.Combine(mManager.Path, $"{implementation.Name}{(mManager.Encryptation == true ? GlobalSettings.DEFAULT_CRYPTO_EXTENSION : GlobalSettings.DEFAULT_EXTENSION)}"));
 
             // Get object instance
             DeserializeContentFromFile<TConfig>(implementation);
@@ -131,7 +137,7 @@ namespace cfgConfig.Core.Implementation.Base
             // Configure the implementation
             implementation.Name = configAttribute.Name != null ? configAttribute.Name : configType.Name; // Set the name
             implementation.Type = configType; // Set type
-            implementation.File = new ConfigFile(Path.Combine(mManager.Path, $"{implementation.Name}{GlobalSettings.DEFAULT_EXTENSION}"));
+            implementation.File = new ConfigFile(Path.Combine(mManager.Path, $"{implementation.Name}{(mManager.Encryptation ? GlobalSettings.DEFAULT_CRYPTO_EXTENSION : GlobalSettings.DEFAULT_EXTENSION)}"));
 
             // Get content from file
             DeserializeContentFromFile(implementation);
@@ -211,6 +217,71 @@ namespace cfgConfig.Core.Implementation.Base
 
         #region Private Helper Methods
 
+        // This method checks if the encryptation was enabled or disabled
+        // So it can migrate files
+        private int MigrationNeeded(BaseConfigImplementation implementation)
+        {
+            string cryptoPath = Path.Combine(mManager.Path, $"{implementation.Name}{GlobalSettings.DEFAULT_CRYPTO_EXTENSION}");
+            string normalPath = Path.Combine(mManager.Path, $"{implementation.Name}{GlobalSettings.DEFAULT_EXTENSION}");
+
+            // Check for migration
+            if (File.Exists(cryptoPath) && mManager.Encryptation) // If there are encrypted files and encryptation is enabled, return 0
+                return 0;
+            else if (File.Exists(cryptoPath) && !mManager.Encryptation) // If there are encrypted files but encryptation is disabled, return 1
+                return 1;
+            else if (File.Exists(normalPath) && !mManager.Encryptation) // If there are normal files and encryptation is disabled, return 0
+                return 0;
+            else if (File.Exists(normalPath) && mManager.Encryptation) // If there are normal files and encryptation is enabled, return 2
+                return 2;
+            else if (File.Exists(normalPath) && File.Exists(cryptoPath) && mManager.Encryptation) // If there are normal and encrypted files and encryptation is enabled, return -1
+                return -1;
+            else if (File.Exists(normalPath) && File.Exists(cryptoPath) && !mManager.Encryptation) // If there are normal and encrypted files and encryptation is disabled, return -2
+                return -2;
+            else // If there are another case, return 1
+                return 3;
+        }
+
+        // Migrate files
+        private void MigrateFiles(int migrationCheck, BaseConfigImplementation implementation)
+        {
+            string cryptoPath = Path.Combine(mManager.Path, $"{implementation.Name}{GlobalSettings.DEFAULT_CRYPTO_EXTENSION}");
+            string normalPath = Path.Combine(mManager.Path, $"{implementation.Name}{GlobalSettings.DEFAULT_EXTENSION}");
+
+            // Migrate from encrypted to normal 
+            if (migrationCheck == 1)
+            {
+                implementation.File = new ConfigFile(cryptoPath);
+                implementation.File.Decrypt(); // Decrypt the file
+
+                // Change the extension
+                //File.Move(implementation.File.FullName, Path.ChangeExtension(implementation.File.FullName, GlobalSettings.DEFAULT_EXTENSION));
+            }
+
+            // Migrate from normal to encrypted
+            else if(migrationCheck == 2)
+            {
+                implementation.File = new ConfigFile(normalPath);
+                implementation.File.Encrypt(); // Encrypt the file
+
+                // Change the extension
+                //File.Move(implementation.File.FullName, Path.ChangeExtension(implementation.File.FullName, GlobalSettings.DEFAULT_CRYPTO_EXTENSION));
+            }
+
+            // Delete normal files
+            else if(migrationCheck == -1)
+            {
+                implementation.File = new ConfigFile(cryptoPath);
+                File.Delete(normalPath);
+            }
+
+            // Delete encrypted files
+            else if(migrationCheck == -2)
+            {
+                implementation.File = new ConfigFile(normalPath);
+                File.Delete(cryptoPath);
+            }
+        }
+
         private string GetSerializedContent(object content, SaveModes mode)
         {
             // String to store the serialized content
@@ -243,7 +314,7 @@ namespace cfgConfig.Core.Implementation.Base
             T deserialized = default;
 
             // If the file exists and contains data...
-            if(implementation.File.Exists && File.ReadAllText(implementation.File.FullName).Length > 0)
+            if(implementation.File.Exists && new FileInfo(implementation.File.FullName).Length > 0)
             {
                 // If the encryptation is enabled, decrypt the file
                 if(mManager.Encryptation)
