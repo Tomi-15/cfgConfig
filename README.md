@@ -30,6 +30,8 @@ Otherwise, exceptions will be thrown when any error occurs. You have to call it 
 ## Usage
 Before start creating configurations, you need a Configuration Manager. Each Configuration Manager can handle one directory where all configuration files will be stored.
 
+### **Configuring the Manager**
+
 #### Create a Configuration Manager
 ---
 To create a Configuration Manager, you will use the ```ConfigurableManager``` class and the ```Make(string, string)``` method, which take two parameters:
@@ -62,5 +64,17 @@ preManager.Configure(settings =>
 
 The ```ConfigurationManagerSettings``` provides methods to configure the Configuration Manager to your needs:
 
-`WithSaveMode(SavesMode)` 
-> **Specifies the serialization method that the manager will use to serialize configurations**
+- `WithSaveMode(SavesMode)` *Specifies the serialization method that the manager will use to serialize configurations*
+- `WithAutoSaveEach(TimeSpan)` *Indicates the manager to save all the configurations in specified interval of time*
+- `ConfigureBackups()` *Configures the Backup System for the Configuration Manager*
+- `Encrypt()` *Enables encryption so all configuration files will be encrypted before being saved*
+
+### Building the Configuration Manager
+---
+After configuring the manager, you are ready to build it and start implementing configurations. For that, you will use the method `Build()` which returns an instance of the created `ConfigurationManager`
+```csharp
+ConfigurationManager myManager = preManager.Build();
+```
+
+### Start implementing configurations
+---
