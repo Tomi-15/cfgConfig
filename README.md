@@ -15,3 +15,8 @@ configurations files for your applications.
 - MVVM compatible
 
 ## Installation
+You can install the latest version of cfgConfig via **Nuget**
+
+``` Shell
+PM nuget install
+```
