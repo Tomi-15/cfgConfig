@@ -1,5 +1,7 @@
 ﻿using cfgConfig.Core.Encryptation;
 using cfgConfig.Core.Engine;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 namespace cfgConfig.Core.Files
@@ -64,6 +66,23 @@ namespace cfgConfig.Core.Files
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Get the lines of the file
+        /// </summary>
+        public string[] GetLines()
+        {
+            // Decrypt the file
+            //Decrypt();
+
+            // Read all lines
+            string[] lines = File.ReadAllLines(FullName);
+
+            // Encrypt again
+            //Encrypt();
+
+            return lines;
         }
 
         /// <summary>

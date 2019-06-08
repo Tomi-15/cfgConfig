@@ -177,13 +177,13 @@ namespace cfgConfig.Core.Implementation.Base
                 config.File.Create();
 
             // Get the serialized content
-            string serializedContent = GetSerializedContent(config.RuntimeInstance, mManager.Settings.SaveMode);
+            string serializedContent = GetSerializedContent(config.RuntimeInstance, mManager.SaveMode);
 
             // Write all the content to the file
             File.WriteAllText(config.File.FullName, serializedContent);
 
             // If the encryptation is enabled, encrypt the file
-            if (mManager.Settings.EncryptationEnabled)
+            if (mManager.Encryptation)
                 config.File.Encrypt();
         }
 
@@ -246,11 +246,11 @@ namespace cfgConfig.Core.Implementation.Base
             if(implementation.File.Exists && File.ReadAllText(implementation.File.FullName).Length > 0)
             {
                 // If the encryptation is enabled, decrypt the file
-                if(mManager.Settings.EncryptationEnabled)
+                if(mManager.Encryptation)
                     implementation.File.Decrypt();
 
                 // Get serializer mode
-                var saveMode = mManager.Settings.SaveMode;
+                var saveMode = mManager.SaveMode;
 
                 switch (saveMode)
                 {
@@ -288,10 +288,10 @@ namespace cfgConfig.Core.Implementation.Base
             if (implementation.File.Exists && File.ReadAllText(implementation.File.FullName).Length > 0)
             {
                 // Get serializer mode
-                var saveMode = mManager.Settings.SaveMode;
+                var saveMode = mManager.SaveMode;
 
                 // Decrypt the file if encryptation is enabled
-                if (mManager.Settings.EncryptationEnabled)
+                if (mManager.Encryptation)
                     implementation.File.Decrypt();
 
                 switch (saveMode)

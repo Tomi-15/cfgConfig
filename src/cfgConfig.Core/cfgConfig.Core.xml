@@ -14,6 +14,16 @@
             The name of the configuration
             </summary>
         </member>
+        <member name="P:cfgConfig.Core.Backups.BackupFile.Path">
+            <summary>
+            The path to the file
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Backups.BackupFile.CreatedDate">
+            <summary>
+            The date when the backup file was created
+            </summary>
+        </member>
         <member name="M:cfgConfig.Core.Encryptation.AES.EncryptFile(System.String,System.String,System.String)">
             <summary>
             Encrypts a file
@@ -40,11 +50,6 @@
             Property that is used to implement new configurations to the manager
             </summary>
         </member>
-        <member name="P:cfgConfig.Core.ConfigurationManager.Settings">
-            <summary>
-            Property that is used to configure the manager
-            </summary>
-        </member>
         <member name="P:cfgConfig.Core.ConfigurationManager.Path">
             <summary>
             Gets the working path of the current configuration manager
@@ -55,12 +60,15 @@
             A name that identifies this configuration manager
             </summary>
         </member>
-        <member name="M:cfgConfig.Core.ConfigurationManager.Make(System.String,System.String)">
+        <member name="P:cfgConfig.Core.ConfigurationManager.SaveMode">
             <summary>
-            Creates a new <see cref="T:cfgConfig.Core.ConfigurationManager"/>
+            The serialization mode
             </summary>
-            <param name="path">The path to the folder where the config files will be stored</param>
-            <param name="identifier">A unique name that identifies the manager</param>
+        </member>
+        <member name="P:cfgConfig.Core.ConfigurationManager.Encryptation">
+            <summary>
+            Indicates if the encryptation is enabled
+            </summary>
         </member>
         <member name="M:cfgConfig.Core.ConfigurationManager.Terminate">
             <summary>
@@ -100,6 +108,33 @@
             <summary>
             Returns an string representation of the manager that contains
             the identifier name and the watching path
+            </summary>
+        </member>
+        <member name="T:cfgConfig.Core.ConfigurableManager">
+            <summary>
+            Class used to create <see cref="T:cfgConfig.Core.ConfigurationManager"/>s
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.ConfigurableManager.Settings">
+            <summary>
+            The settings to configure the manager
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.ConfigurableManager.Make(System.String,System.String)">
+            <summary>
+            Creates a new <see cref="T:cfgConfig.Core.ConfigurationManager"/>
+            </summary>
+            <param name="path">The path to the folder where the config files will be stored</param>
+            <param name="identifier">A unique name that identifies the manager</param>
+        </member>
+        <member name="M:cfgConfig.Core.ConfigurableManager.Configure(System.Action{cfgConfig.Core.Engine.Settings.ConfigurationManagerSettings})">
+            <summary>
+            Configures the settings of the manager
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.ConfigurableManager.Build">
+            <summary>
+            Builds the configuration manager
             </summary>
         </member>
         <member name="T:cfgConfig.Core.Engine.Settings.ConfigurationManagerSettings">
@@ -210,6 +245,11 @@
         <member name="M:cfgConfig.Core.Files.ConfigFile.Create">
             <summary>
             Creates the file
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Files.ConfigFile.GetLines">
+            <summary>
+            Get the lines of the file
             </summary>
         </member>
         <member name="M:cfgConfig.Core.Files.ConfigFile.Encrypt">

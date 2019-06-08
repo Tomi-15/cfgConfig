@@ -11,7 +11,7 @@ namespace cfgConfig.Core.Engine.Settings
         #region Public Properties
 
         internal SaveModes SaveMode { get; set; }
-        internal TimeSpan AutoSaveTimeout { get; set; }
+        internal TimeSpan AutoSaveTimeout { get; set; } = new TimeSpan(0, 0, 0, 0, -1);
         internal bool CreateBackups { get; set; } // TODO: Improve backup systems
         internal bool EncryptationEnabled { get; set; }
 
@@ -37,6 +37,7 @@ namespace cfgConfig.Core.Engine.Settings
         public ConfigurationManagerSettings WithAutoSaveEach(TimeSpan interval)
         {
             AutoSaveTimeout = interval;
+            //mManager.SetupAutoSave();
 
             return this;
         }
