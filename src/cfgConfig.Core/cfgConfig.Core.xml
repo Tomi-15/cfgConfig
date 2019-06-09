@@ -16,7 +16,7 @@
         </member>
         <member name="P:cfgConfig.Core.Backups.BackupFile.Path">
             <summary>
-            The path to the file
+            The path to the file.
             </summary>
         </member>
         <member name="P:cfgConfig.Core.Backups.BackupFile.CreatedDate">
