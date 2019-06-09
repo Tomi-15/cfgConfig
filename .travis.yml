@@ -4,4 +4,4 @@ dotnet: 2.0.0
 mono: none
 script: 
   - dotnet restore
-  - dotnet build src\cfgConfig.sln
+  - dotnet build src/cfgConfig.sln
