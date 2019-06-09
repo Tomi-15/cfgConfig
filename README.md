@@ -7,6 +7,8 @@ configurations files for your applications.
 [![Build Status](https://img.shields.io/travis/Tomi-15/cfgConfig.svg?style=for-the-badge)](https://travis-ci.com/Tomi-15/cfgConfig)
 [![License](https://img.shields.io/badge/license-GNU%20GPLv3-blue.svg?style=for-the-badge)](https://github.com/Tomi-15/cfgConfig/blob/master/LICENSE.txt)
 [![OpenIssues](https://img.shields.io/github/issues-raw/Tomi-15/cfgConfig.svg?style=for-the-badge)](https://github.com/Tomi-15/cfgConfig/issues)
+[![Discord](https://img.shields.io/badge/Discord-Tomas%238453-orange.svg?style=for-the-badge&logo=discord)]
+
 
 ## Features
 - Secured configuration files using AES encryptation
