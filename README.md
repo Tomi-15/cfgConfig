@@ -30,7 +30,7 @@ Otherwise, exceptions will be thrown when any error occurs. You have to call it 
 ## Usage
 Before start creating configurations, you need a Configuration Manager. Each Configuration Manager can handle one directory where all configuration files will be stored.
 
-### **Configuring the Manager**
+### **Building a Configuration Manager**
 
 #### Create a Configuration Manager
 ---
@@ -69,12 +69,101 @@ The ```ConfigurationManagerSettings``` provides methods to configure the Configu
 - `ConfigureBackups()` *Configures the Backup System for the Configuration Manager*
 - `Encrypt()` *Enables encryption so all configuration files will be encrypted before being saved*
 
-### Building the Configuration Manager
+#### Building the Configuration Manager
 ---
 After configuring the manager, you are ready to build it and start implementing configurations. For that, you will use the method `Build()` which returns an instance of the created `ConfigurationManager`
 ```csharp
 ConfigurationManager myManager = preManager.Build();
 ```
 
-### Start implementing configurations
+#### Closing the Manager
 ---
+To save all configurations and unload all Configuration Managers created, until your program ends you have to call the static method `Terminate()` found in the `ConfigurationManager` class:
+```csharp
+ConfigurationManager.Terminate();
+```
+> If its not called, it can cause bugs and data loss
+
+### **Creating and implementing configurations**
+
+#### Configure a class
+---
+First or all, you need to mark a class to act as a Configuration, and you do that by adding the `Config` attribute to the class:
+```csharp
+[Config]
+public class Settings1
+{
+    public bool DarkModeEnabled { get; set; }
+
+    public string Username { get; set; }
+
+    public int MaxLoginAttemps { get; set; } = 5;
+}
+```
+Optionally, you can define a custom name for the class by adding the `Name` property to the attribute:
+```[Config(Name = "UserSettings")]```
+> If it's not specified, the name of the class will be used as the name of the Configuration
+
+#### Implementing the configuration
+---
+Once you have configured the class that will act as Configuration, you are ready to implement it by calling the `Implement<T>()` method, from the `Implementations` property found in the `ConfigurationManager` class:
+```csharp
+myManager.Implementations.Implement<Settings1>();
+```
+> You can use the non-generic method if you want: ```Implement(Type)``` which takes the type of your Configuration class
+
+### **Using the configurations**
+
+#### Get a configuration
+---
+To get a Configuration, you have to call the method `GetConfig<T>` from the `ConfigurationManager` class:
+```csharp
+var settings1 = myManager.GetConfig<Settings1>();
+```
+It will throw an `ConfigNotFoundException` if the Configuration is invalid or is not implemented.
+> You can use the non-generic method if you want: `GetConfig(Type)` which takes the type of your Configuration class
+
+#### Saving configurations
+---
+When you make a change in your Configuration class, you can wait for the auto save (if its configured), wait until the application gets closed, or you can save it by calling the extension method `SaveConfig<TConfig>(TConfig)` which takes one parameter:
+
+ `config` **TConfig**
+>The Configuration class that is going to be saved
+
+```csharp
+config.SaveConfig();
+```
+It will throw an `ConfigNotFoundException` if the Configuration is invalid or is not implemented.
+
+### **Summary**
+```csharp
+static void Main(string[] args)
+{
+    ConfigurationManager.UseConsole();
+
+    // Create the manager
+    var manager = ConfigurableManager.Make("AppData\\Roaming\\MyApp\\Settings", "myManager")
+                                        .Configure(settings => // Configure manager
+                                        {
+                                            settings
+                                                .WithAutoSaveEach(TimeSpan.FromMinutes(30))
+                                                .WithSaveMode(SaveModes.Json);
+
+                                        }).Build(); // Build it
+
+    // Implement a configuration of type MySettings
+    manager.Implementations.Implement<MySettings>();
+
+    // Get the configuration
+    var config = manager.GetConfig<MySettings>();
+
+    // Print some values
+    Console.WriteLine($"{config.MySetting} : {config.Save}");
+
+    // Wait until user input
+    Console.ReadLine();
+
+    // Terminate the session
+    ConfigurationManager.Terminate();
+}
+```
