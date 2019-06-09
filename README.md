@@ -183,3 +183,11 @@ myManager.RestoreLastBackup();
 ```
 
 After restoring, you have to eliminate that line from your program's code.
+
+## License
+Licensed under **GNU General Public License v3.0**
+
+>For more information read LICENSE.txt
+
+## Donate
+Buy me a Fernet ;)
