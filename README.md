@@ -4,7 +4,7 @@ configurations files for your applications.
 
 > It's cross-platform so you can use it in Xamarin, .NET Core, Mono and .NET Framework projects
 
-
+[![Build Status](https://travis-ci.com/Tomi-15/cfgConfig.svg?branch=master)](https://travis-ci.com/Tomi-15/cfgConfig)
 
 ## Features
 - Secured configuration files using AES encryptation
