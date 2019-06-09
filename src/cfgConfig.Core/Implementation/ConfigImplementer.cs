@@ -311,7 +311,7 @@ namespace cfgConfig.Core.Implementation.Base
 
         private void DeserializeContentFromFile<T>(BaseConfigImplementation implementation)
         {
-            T deserialized = default;
+            object deserialized = null;
 
             // If the file exists and contains data...
             if(implementation.File.Exists && new FileInfo(implementation.File.FullName).Length > 0)
@@ -338,7 +338,7 @@ namespace cfgConfig.Core.Implementation.Base
                         break;
                 }
 
-                implementation.RuntimeInstance = deserialized;
+                implementation.RuntimeInstance = (T)deserialized;
             }
             else
             {
@@ -353,7 +353,7 @@ namespace cfgConfig.Core.Implementation.Base
 
         private void DeserializeContentFromFile(BaseConfigImplementation implementation)
         {
-            object deserialized = default;
+            object deserialized = null;
 
             // If the file exists and contains data...
             if (implementation.File.Exists && File.ReadAllText(implementation.File.FullName).Length > 0)
