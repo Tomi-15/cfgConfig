@@ -5,7 +5,8 @@ configurations files for your applications.
 > It's cross-platform so you can use it in Xamarin, .NET Core, Mono and .NET Framework projects
 
 [![Build Status](https://img.shields.io/travis/Tomi-15/cfgConfig.svg?style=for-the-badge)](https://travis-ci.com/Tomi-15/cfgConfig)
-[![License](https://img.shields.io/badge/license-GNU%20GPLv3-blue.svg?style=for-the-badge)](https://raw.githubusercontent.com/Tomi-15/cfgConfig/master/LICENSE.txt)
+[![License](https://img.shields.io/badge/license-GNU%20GPLv3-blue.svg?style=for-the-badge)](https://github.com/Tomi-15/cfgConfig/blob/master/LICENSE.txt)
+[![OpenIssues](https://img.shields.io/github/issues-raw/Tomi-15/cfgConfig.svg?style=for-the-badge)](https://github.com/Tomi-15/cfgConfig/issues)
 
 ## Features
 - Secured configuration files using AES encryptation
