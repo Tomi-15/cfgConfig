@@ -191,4 +191,4 @@ Licensed under **GNU General Public License v3.0**
 >For more information read LICENSE.txt
 
 ## Donate
-Buy me a Fernet ;)
+[Buy me](https://www.paypal.me/tomasweg15?locale.x=es_XC) a Fernet ;)
