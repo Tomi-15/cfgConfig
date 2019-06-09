@@ -137,6 +137,7 @@ It will throw an `ConfigNotFoundException` if the Configuration is invalid or is
 
 ### **Summary**
 ```csharp
+// Console app's entry point
 static void Main(string[] args)
 {
     ConfigurationManager.UseConsole();
@@ -158,7 +159,7 @@ static void Main(string[] args)
     var config = manager.GetConfig<MySettings>();
 
     // Print some values
-    Console.WriteLine($"{config.MySetting} : {config.Save}");
+    Console.WriteLine($"{config.DarkModeEnabled} : {config.Username}");
 
     // Wait until user input
     Console.ReadLine();
@@ -167,3 +168,18 @@ static void Main(string[] args)
     ConfigurationManager.Terminate();
 }
 ```
+
+### Using the Backup system
+---
+If you didn't enabled while configuring the manager, enable it by calling the `ConfigureBackups()` method.
+> More information above
+
+When you enable backups, at the time the application gets closed, and all configurations are saved, backups of them are made, encrypted and saved in a directory called Backups, located at the working path of the Configuration Manager specified.
+
+If something happens to your configuration files, you can have to call **ONE TIME** the method `RestoreLastBackup()` from the `ConfigurationManager` instance after implementing your configurations.
+
+```csharp
+myManager.RestoreLastBackup();
+```
+
+After restoring, you have to eliminate that line from your program's code.
