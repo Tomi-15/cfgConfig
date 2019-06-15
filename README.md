@@ -22,7 +22,7 @@ configurations files for your applications.
 You can install the latest version of cfgConfig via **Nuget Package Manager**
 
 ``` Shell
-PM nuget install
+PM> Install-Package cfgConfig.Base
 ```
 
 Optionally, you can specify that you will use a console to log errors and information messages:
