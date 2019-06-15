@@ -11,6 +11,9 @@
     <PackageProjectUrl>https://github.com/Tomi-15/cfgConfig</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Tomi-15/cfgConfig</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>1.0.1</Version>
+    <PackageId>cfgConfig.Base</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
