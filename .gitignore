@@ -330,3 +330,4 @@ ASALocalRun/
 .mfractor/
 /builds/netstandard2.0
 /tests/TestConsoleApp
+/builds
