@@ -13,13 +13,46 @@ using System.Timers;
 namespace cfgConfig.Core
 {
     /// <summary>
+    /// An interface that all the configuration manager has to have
+    /// </summary>
+    public interface IConfiguration
+    {
+        /// <summary>
+        /// Property that is used to implement new configurations to the manager
+        /// </summary>
+        ConfigImplementer Implementations { get; }
+
+        /// <summary>
+        /// Gets the working path of the current configuration manager
+        /// </summary>
+        string Path { get; }
+
+        /// <summary>
+        /// A name that indentifies this configuration manager
+        /// </summary>
+        string Identifier { get; }
+
+        /// <summary>
+        /// The serialization mode
+        /// </summary>
+        SaveModes SaveMode { get; }
+
+        /// <summary>
+        /// Indicates if the encryptation is enabled
+        /// </summary>
+        bool Encryptation { get; }
+    }
+
+    /// <summary>
     /// Creates a new manager to handle configurations
     /// </summary>
-    public sealed class ConfigurationManager
+    public sealed class ConfigurationManager : IConfiguration
     {
         #region Private Members
 
         private string mPath; // The directory where the config files will be saved
+        private SaveModes mSaveMode;
+        private bool mEncryptation;
         private BackupManager mBackupManager;
         internal static readonly IList<ConfigurationManager> mCreatedManagers = new List<ConfigurationManager>(); // Contains all the configuration managers
 
@@ -41,7 +74,7 @@ namespace cfgConfig.Core
         /// <summary>
         /// Property that is used to implement new configurations to the manager
         /// </summary>
-        public ConfigImplementer Implementations { get; internal set; }
+        public ConfigImplementer Implementations { get; }
 
         /// <summary>
         /// Gets the working path of the current configuration manager
@@ -56,12 +89,12 @@ namespace cfgConfig.Core
         /// <summary>
         /// The serialization mode
         /// </summary>
-        public SaveModes SaveMode { get; internal set; }
+        public SaveModes SaveMode => mSaveMode;
 
         /// <summary>
         /// Indicates if the encryptation is enabled
         /// </summary>
-        public bool Encryptation { get; internal set; }
+        public bool Encryptation => mEncryptation;
 
         #endregion
 
@@ -183,8 +216,11 @@ namespace cfgConfig.Core
 
         internal void SetupEncryptation()
         {
-            Encryptation = true;
+            mEncryptation = true;
         }
+
+        internal void SetSaveMode(SaveModes mode)
+            => mSaveMode = mode;
 
         #endregion
 
@@ -278,14 +314,14 @@ namespace cfgConfig.Core
         /// <summary>
         /// Builds the configuration manager
         /// </summary>
-        public ConfigurationManager Build()
+        public IConfiguration Build()
         {
             // Create config manager
             var configManager = new ConfigurationManager(mIdentifier, mPath);
 
             // Set settings
             configManager.SetupAutoSave(Settings.AutoSaveTimeout); // Configure auto save
-            configManager.SaveMode = Settings.SaveMode; // Serialization mode
+            configManager.SetSaveMode(Settings.SaveMode); // Serialization mode
             if(mSettings.EncryptationEnabled) configManager.SetupEncryptation(); // Encryptation 
             if(Settings.CreateBackups) configManager.SetupBackups(); // Configure backups
 

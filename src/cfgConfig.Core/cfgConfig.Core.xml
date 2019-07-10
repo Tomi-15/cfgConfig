@@ -40,6 +40,16 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:cfgConfig.Core.IConfiguration">
+            <summary>
+            An interface that all the configuration manager has to have
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.IConfiguration.Implementations">
+            <summary>
+            Property that is used to implement new configurations to the manager
+            </summary>
+        </member>
         <member name="T:cfgConfig.Core.ConfigurationManager">
             <summary>
             Creates a new manager to handle configurations
