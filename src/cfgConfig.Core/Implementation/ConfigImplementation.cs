@@ -37,12 +37,17 @@ namespace cfgConfig.Core.Implementation
         /// <summary>
         /// Default constructor
         /// </summary>
-        public BaseConfigImplementation() { }
+        public BaseConfigImplementation()
+        {
+        }
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public BaseConfigImplementation(Type type) { Type = type; }
+        public BaseConfigImplementation(Type type)
+        {
+            Type = type;
+        }
 
         #endregion
     }

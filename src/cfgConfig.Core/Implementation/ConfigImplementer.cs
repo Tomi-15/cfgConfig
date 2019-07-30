@@ -280,6 +280,12 @@ namespace cfgConfig.Core.Implementation.Base
                 implementation.File = new ConfigFile(normalPath);
                 File.Delete(cryptoPath);
             }
+
+            // Otherwise, just create the config file
+            else
+            {
+                implementation.File = new ConfigFile(normalPath);
+            }
         }
 
         private string GetSerializedContent(object content, SaveModes mode)
@@ -311,8 +317,6 @@ namespace cfgConfig.Core.Implementation.Base
 
         private void DeserializeContentFromFile<T>(BaseConfigImplementation implementation)
         {
-            object deserialized = null;
-
             // If the file exists and contains data...
             if(implementation.File.Exists && new FileInfo(implementation.File.FullName).Length > 0)
             {
@@ -326,19 +330,17 @@ namespace cfgConfig.Core.Implementation.Base
                 switch (saveMode)
                 {
                     case SaveModes.Json:
-                        deserialized = JsonConvert.DeserializeObject<T>(File.ReadAllText(implementation.File.FullName));
+                        implementation.RuntimeInstance = JsonConvert.DeserializeObject<T>(File.ReadAllText(implementation.File.FullName));
                         break;
 
                     case SaveModes.Xml:
-                        deserialized = XmlSerializer.Deserialize<T>(File.ReadAllText(implementation.File.FullName));
+                        implementation.RuntimeInstance = XmlSerializer.Deserialize<T>(File.ReadAllText(implementation.File.FullName));
                         break;
 
                     case SaveModes.Binary:
-                        deserialized = BinarySerializer.Deserialize<T>(File.ReadAllText(implementation.File.FullName));
+                        implementation.RuntimeInstance = BinarySerializer.Deserialize<T>(File.ReadAllText(implementation.File.FullName));
                         break;
                 }
-
-                implementation.RuntimeInstance = (T)deserialized;
             }
             else
             {

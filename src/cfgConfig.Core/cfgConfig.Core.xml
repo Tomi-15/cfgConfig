@@ -50,6 +50,26 @@
             Property that is used to implement new configurations to the manager
             </summary>
         </member>
+        <member name="P:cfgConfig.Core.IConfiguration.Path">
+            <summary>
+            Gets the working path of the current configuration manager
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.IConfiguration.Identifier">
+            <summary>
+            A name that indentifies this configuration manager
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.IConfiguration.SaveMode">
+            <summary>
+            The serialization mode
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.IConfiguration.Encryptation">
+            <summary>
+            Indicates if the encryptation is enabled
+            </summary>
+        </member>
         <member name="T:cfgConfig.Core.ConfigurationManager">
             <summary>
             Creates a new manager to handle configurations
