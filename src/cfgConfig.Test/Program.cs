@@ -11,21 +11,21 @@ namespace cfgConfig.Test
         {
             ConfigurationManager.UseConsole();
             var config = ConfigurableManager.Make("test", "mySettings")
-                .Configure(settings => settings.WithSaveMode(SaveModes.Json))
+                .Configure(settings => settings.Encrypt())
                 .Build();
 
-            config.Implementations.Implement(typeof(MySettings));
+            config.Implementations.Implement<MySettings>();
 
             var st = ConfigurationManager.GetManager("mySettings").GetConfig<MySettings>();
 
             st.test2 = new Test
             {
-                MyName = "Tomas"
+                MyName = "Waslope"
             };
 
-            ConfigurationManager.Terminate();
-
             Console.ReadLine();
+
+            ConfigurationManager.Terminate();
         }
     }
 

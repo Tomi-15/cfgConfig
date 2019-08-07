@@ -34,7 +34,17 @@
             Decrypts a file
             </summary>
         </member>
-        <member name="M:cfgConfig.Core.Encryptation.AES.GenerateRandomSalt">
+        <member name="M:cfgConfig.Core.Encryptation.AES.EncryptString(System.String,System.String)">
+            <summary>
+            Encrypts text
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Encryptation.AES.DecryptData(System.Byte[],System.String)">
+            <summary>
+            Decrypts data to text
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Encryptation.AES.Generate256BitsOfRandomEntropy">
             <summary>
             Creates a random salt that will be used to encrypt
             </summary>
@@ -290,7 +300,7 @@
         </member>
         <member name="M:cfgConfig.Core.Files.ConfigFile.Encrypt">
             <summary>
-            Encrypts the file
+            Encrypts the file content
             </summary>
         </member>
         <member name="M:cfgConfig.Core.Files.ConfigFile.Decrypt">

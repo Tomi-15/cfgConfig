@@ -86,57 +86,40 @@ namespace cfgConfig.Core.Files
         }
 
         /// <summary>
-        /// Encrypts the file
+        /// Encrypts the file content
         /// </summary>
         public void Encrypt()
         {
-            // Move the file to a temp location
-            string tempFilePath = Path.GetTempFileName(); // Get temp location
-            try
+            // Create streams to work with the file
+            using(var fs = new FileStream(FullName, FileMode.Open))
+            using(StreamReader reader = new StreamReader(fs))
+            using (BinaryWriter writer = new BinaryWriter(fs)) 
             {
-                // Delete file if already exists
-                if (File.Exists(tempFilePath))
-                    File.Delete(tempFilePath);
-
-                File.Move(FullName, tempFilePath); // Move the file
-                FullName = FullName.Replace(GlobalSettings.DEFAULT_EXTENSION, GlobalSettings.DEFAULT_CRYPTO_EXTENSION);
-                AES.EncryptFile(tempFilePath, FullName, "myPassword"); // Decrypt the file ytHJjaat6NnbyDPHu334Khz3LS8TMGjM
-                Logger.LogInfo($"File {Name} encrypted.");
+                string fileContent = reader.ReadToEnd(); // Read file content
+                byte[] encrypted = AES.EncryptString(fileContent, "ytHJjaat6NnbyDPHu334Khz3LS8TMGjM"); // Encrypt data
+                fs.SetLength(0); // Clear the file
+                fs.Flush();
+                writer.Write(encrypted); // Write encrypted data to the file
+                writer.Flush();
             }
-            catch
-            {
-                throw;
-            }
-
-            // Delete the file
-            File.Delete(tempFilePath);
         }
 
         /// <summary>
         /// Decrypts the file
         /// </summary>
-        public void Decrypt()
+        public string Decrypt()
         {
-            // Move encrypted file to a temp location
-            string tempFilePath = Path.Combine(Path.GetTempPath(), Name + ".encrypted");
-            try
-            {
-                // Delete file if exists
-                if (File.Exists(tempFilePath))
-                    File.Delete(tempFilePath);
+            string decrypted = "";
 
-                File.Move(FullName, tempFilePath); // Move the file
-                FullName = FullName.Replace(GlobalSettings.DEFAULT_CRYPTO_EXTENSION, GlobalSettings.DEFAULT_EXTENSION);
-                AES.DecryptFile(tempFilePath, FullName, "myPassword"); // Decrypt the file
-                Logger.LogInfo($"File {Name} decrypted.");
-            }
-            catch
+            // Create streams to work with the file
+            using (var fs = new FileStream(FullName, FileMode.Open))
+            using (BinaryReader reader = new BinaryReader(fs))
             {
-                throw;
+                byte[] encryptedBuffer = reader.ReadBytes((int)fs.Length); // Read file content
+                decrypted = AES.DecryptData(encryptedBuffer, "ytHJjaat6NnbyDPHu334Khz3LS8TMGjM"); // Decrypt data
             }
 
-            // Delete temp file
-            File.Delete(tempFilePath);
+            return decrypted;
         }
 
         #endregion

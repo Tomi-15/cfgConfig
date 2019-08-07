@@ -84,11 +84,11 @@ namespace cfgConfig.Core.Implementation.Base
             implementation.Type = configType; // Set type
 
             // Check if its needs migration
-            int migrationNeeded = MigrationNeeded(implementation);
-            if (migrationNeeded != 0)
-                MigrateFiles(migrationNeeded, implementation); // Migrate if necessary
-            else
-                implementation.File = new ConfigFile(Path.Combine(mManager.Path, $"{implementation.Name}{(mManager.Encryptation == true ? GlobalSettings.DEFAULT_CRYPTO_EXTENSION : GlobalSettings.DEFAULT_EXTENSION)}"));
+            //int migrationNeeded = MigrationNeeded(implementation);
+            //if (migrationNeeded != 0)
+            //    MigrateFiles(migrationNeeded, implementation); // Migrate if necessary
+            //else
+            implementation.File = new ConfigFile(Path.Combine(mManager.Path, $"{implementation.Name}{GlobalSettings.DEFAULT_EXTENSION}"));
 
             // Get object instance
             DeserializeContentFromFile<TConfig>(implementation);
@@ -322,27 +322,30 @@ namespace cfgConfig.Core.Implementation.Base
         private void DeserializeContentFromFile<T>(BaseConfigImplementation implementation)
         {
             // If the file exists and contains data...
-            if(implementation.File.Exists && new FileInfo(implementation.File.FullName).Length > 0)
+            if (implementation.File != null & implementation.File.Exists && File.ReadAllText(implementation.File.FullName).Length > 0)
             {
-                // If the encryptation is enabled, decrypt the file
-                if(mManager.Encryptation)
-                    implementation.File.Decrypt();
-
                 // Get serializer mode
                 var saveMode = mManager.SaveMode;
+                string fileContent; // Store file content
+
+                // Decrypt the file if encryptation is enabled
+                if (mManager.Encryptation)
+                    fileContent = implementation.File.Decrypt();
+                else
+                    fileContent = File.ReadAllText(implementation.File.FullName); // Otherwise, read the whole file
 
                 switch (saveMode)
                 {
                     case SaveModes.Json:
-                        implementation.RuntimeInstance = JsonConvert.DeserializeObject<T>(File.ReadAllText(implementation.File.FullName));
+                        implementation.RuntimeInstance = JsonConvert.DeserializeObject<T>(fileContent);
                         break;
 
                     case SaveModes.Xml:
-                        implementation.RuntimeInstance = XmlSerializer.Deserialize<T>(File.ReadAllText(implementation.File.FullName));
+                        implementation.RuntimeInstance = XmlSerializer.Deserialize<T>(fileContent);
                         break;
 
                     case SaveModes.Binary:
-                        implementation.RuntimeInstance = BinarySerializer.Deserialize<T>(File.ReadAllText(implementation.File.FullName));
+                        implementation.RuntimeInstance = BinarySerializer.Deserialize<T>(fileContent);
                         break;
                 }
             }
@@ -362,27 +365,30 @@ namespace cfgConfig.Core.Implementation.Base
             object deserialized = null;
 
             // If the file exists and contains data...
-            if (implementation.File.Exists && File.ReadAllText(implementation.File.FullName).Length > 0)
+            if (implementation.File != null & implementation.File.Exists && File.ReadAllText(implementation.File.FullName).Length > 0)
             {
                 // Get serializer mode
                 var saveMode = mManager.SaveMode;
+                string fileContent; // Store file content
 
                 // Decrypt the file if encryptation is enabled
                 if (mManager.Encryptation)
-                    implementation.File.Decrypt();
+                    fileContent = implementation.File.Decrypt();
+                else
+                    fileContent = File.ReadAllText(implementation.File.FullName); // Otherwise, read the whole file
 
                 switch (saveMode)
                 {
                     case SaveModes.Json:
-                        deserialized = JsonConvert.DeserializeObject(File.ReadAllText(implementation.File.FullName), implementation.Type);
+                        deserialized = JsonConvert.DeserializeObject(fileContent, implementation.Type);
                         break;
 
                     case SaveModes.Xml:
-                        deserialized = XmlSerializer.Deserialize(File.ReadAllText(implementation.File.FullName), implementation.Type);
+                        deserialized = XmlSerializer.Deserialize(fileContent, implementation.Type);
                         break;
 
                     case SaveModes.Binary:
-                        deserialized = BinarySerializer.Deserialize(File.ReadAllText(implementation.File.FullName));
+                        deserialized = BinarySerializer.Deserialize(fileContent);
                         break;
                 }
 
