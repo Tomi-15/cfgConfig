@@ -79,6 +79,14 @@ namespace cfgConfig.Core.Implementation
 
         public ConfigImplementation(Type type) : base(type) { }
 
+        public ConfigImplementation(BaseConfigImplementation implementation) : base()
+        {
+            RuntimeInstance = (TRuntime)implementation.RuntimeInstance;
+            Name = implementation.Name;
+            Type = implementation.Type;
+            File = implementation.File;
+        }
+
         public ConfigImplementation() : base() { }
     }
 }

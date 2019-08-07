@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/Tomi-15/cfgConfig</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.1.5</Version>
+    <Version>1.2.0</Version>
     <PackageId>cfgConfig.Base</PackageId>
     <PackageIconUrl>https://raw.githubusercontent.com/Tomi-15/cfgConfig/master/resources/icon.png</PackageIconUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/Tomi-15/cfgConfig/master/LICENSE.txt</PackageLicenseUrl>

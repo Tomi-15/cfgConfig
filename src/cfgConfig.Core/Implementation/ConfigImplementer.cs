@@ -137,7 +137,7 @@ namespace cfgConfig.Core.Implementation.Base
             // Configure the implementation
             implementation.Name = configAttribute.Name != null ? configAttribute.Name : configType.Name; // Set the name
             implementation.Type = configType; // Set type
-            implementation.File = new ConfigFile(Path.Combine(mManager.Path, $"{implementation.Name}{(mManager.Encryptation ? GlobalSettings.DEFAULT_CRYPTO_EXTENSION : GlobalSettings.DEFAULT_EXTENSION)}"));
+            implementation.File = new ConfigFile(Path.Combine(mManager.Path, $"{implementation.Name}{GlobalSettings.DEFAULT_EXTENSION}"));
 
             // Get content from file
             DeserializeContentFromFile(implementation);
@@ -197,8 +197,12 @@ namespace cfgConfig.Core.Implementation.Base
         /// Gets a registered implementation
         /// </summary>
         /// <typeparam name="T">The type of implementation to get</typeparam>
-        internal ConfigImplementation<T> GetImplementation<T>() 
-            => (ConfigImplementation<T>)mConfigImplementations.First(x => x.Type == typeof(T));
+        internal ConfigImplementation<T> GetImplementation<T>()
+        {
+            var implementation = mConfigImplementations.First(x => x.Type == typeof(T));
+
+            return new ConfigImplementation<T>(implementation);
+        }
 
         /// <summary>
         /// Gets a registered implementation
@@ -370,7 +374,7 @@ namespace cfgConfig.Core.Implementation.Base
                 switch (saveMode)
                 {
                     case SaveModes.Json:
-                        deserialized = JsonConvert.DeserializeObject(File.ReadAllText(implementation.File.FullName));
+                        deserialized = JsonConvert.DeserializeObject(File.ReadAllText(implementation.File.FullName), implementation.Type);
                         break;
 
                     case SaveModes.Xml:
