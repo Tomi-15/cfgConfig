@@ -7,10 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cfgConfig.Core", "cfgConfig
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E9D2DEC6-FB28-4226-A957-ACBD0DCDF2F1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3D12FC8B-ACA1-4FA0-BBBA-9FC149ABB127}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cfgConfig.Test", "cfgConfig.Test\cfgConfig.Test.csproj", "{316D144A-5C6C-4676-BC1A-C55A328B813A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
