@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Tomas Wegenast</Authors>
     <Product>cfgConfig</Product>
@@ -11,20 +11,32 @@
     <RepositoryUrl>https://github.com/Tomi-15/cfgConfig</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.2.0</Version>
+    <Version>2.0.0</Version>
     <PackageId>cfgConfig.Base</PackageId>
     <PackageIconUrl>https://raw.githubusercontent.com/Tomi-15/cfgConfig/master/resources/icon.png</PackageIconUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/Tomi-15/cfgConfig/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageReleaseNotes>Complete re-code</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\Bitture\Software\Repositories\cfgConfig\src\cfgConfig.Core\cfgConfig.Core.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>E:\Bitture\Software\Repositories\cfgConfig\src\cfgConfig.Core\cfgConfig.Core.xml</DocumentationFile>
-    <OutputPath>E:\Bitture\Software\Repositories\cfgConfig\builds\</OutputPath>
+    <DocumentationFile>..\..\builds\netstandard2.0\cfgConfig.Core.xml</DocumentationFile>
+    <OutputPath>..\..\builds</OutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="old\**" />
+    <EmbeddedResource Remove="old\**" />
+    <None Remove="old\**" />
+    <None Include="..\..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />

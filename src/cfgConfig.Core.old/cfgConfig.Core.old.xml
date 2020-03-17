@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>cfgConfig.Core</name>
+    </assembly>
+    <members>
+        <member name="T:cfgConfig.Core.ConfigurationManager">
+            <summary>
+            Manages the creation of configurations and environments
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.ConfigurationManager.CreateNewEnvironment(System.String)">
+            <summary>
+            Creates a new configuration environment in a specific folder.
+            </summary>
+            <param name="folder">The folder path where to create the new environment. If the folder does not exists, its created</param>
+        </member>
+        <member name="T:cfgConfig.Core.Configuration.ConfigurationProvider">
+            <summary>
+            Provides all the configurations implemented
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.ConfigurationProvider.Add(cfgConfig.Core.Configuration.ConfigurationTypeInformation,cfgConfig.Core.Environment.IConfigEnvironment)">
+            <summary>
+            Adds a configuration type information
+            </summary>
+            <param name="information">The information about the configuration</param>
+            <param name="environment">The environment where the configuration type was implemented</param>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.ConfigurationProvider.Add(System.Collections.Generic.IEnumerable{cfgConfig.Core.Configuration.ConfigurationTypeInformation},cfgConfig.Core.Environment.IConfigEnvironment)">
+            <summary>
+            Adds a list of configurations
+            </summary>
+            <param name="configurations">The configuration enumerable</param>
+            <param name="environment">The environment</param>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.ConfigurationProvider.Remove(cfgConfig.Core.Configuration.ConfigurationTypeInformation,cfgConfig.Core.Environment.IConfigEnvironment)">
+            <summary>
+            Removes a configuration from an environment
+            </summary>
+            <param name="information">The configuration to remove</param>
+            <param name="environment">The environment to remove the configuration from</param>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.ConfigurationProvider.Remove(cfgConfig.Core.Environment.IConfigEnvironment)">
+            <summary>
+            Removes a full environment from the provider
+            </summary>
+            <param name="environment">The environment to remove</param>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.ConfigurationProvider.Get``1(cfgConfig.Core.Environment.IConfigEnvironment,System.String)">
+            <summary>
+            Returns a <see cref="T:cfgConfig.Core.Configuration.ConfigurationTypeInformation"/>
+            </summary>
+            <typeparam name="TConfiguration">The type of the configuration to get</typeparam>
+            <param name="environment">The environment from where the configuration will be gotten</param>
+            <param name="configurationName">The name of the configuration to get</param>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.ConfigurationProvider.Get(System.String,cfgConfig.Core.Environment.IConfigEnvironment)">
+            <summary>
+            Returns a <see cref="T:cfgConfig.Core.Configuration.ConfigurationTypeInformation"/>
+            </summary>
+            <param name="configurationName">The name of the configuration to get.</param>
+            <param name="environment">The environment from where the configuration will be gotten</param>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.ConfigurationProvider.Amount(cfgConfig.Core.Environment.IConfigEnvironment)">
+            <summary>
+            Returns the amount of configurations per environment
+            </summary>
+            <param name="environment">Optional environment. If null, all environments will be taken.</param>
+        </member>
+        <member name="T:cfgConfig.Core.Configuration.ConfigurationTypeInformation">
+            <summary>
+            Contains information about a <see cref="T:cfgConfig.Core.Configuration.IConfigurationType"/>
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Configuration.ConfigurationTypeInformation.Id">
+            <summary>
+            An unique id
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Configuration.ConfigurationTypeInformation.ConfigurationType">
+            <summary>
+            The configuration type 
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Configuration.ConfigurationTypeInformation.Name">
+            <summary>
+            A name for this configuration type
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Configuration.ConfigurationTypeInformation.Path">
+            <summary>
+            The path to the filename of this configuration
+            </summary>
+        </member>
+        <member name="T:cfgConfig.Core.Configuration.IConfigurationType">
+            <summary>
+            Represents a base configuration type
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.IConfigurationType.Read(System.IO.Stream)">
+            <summary>
+            Reads the configuration type and returns the object result
+            </summary>
+            <param name="stream">The stream to read the configuration from</param>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.IConfigurationType.Write(System.IO.Stream)">
+            <summary>
+            Writes the configuration to the source stream
+            </summary>
+            <param name="stream">The source stream to write the configuration to</param>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.IConfigurationType.Get``1(System.Object)">
+            <summary>
+            Gets a property
+            </summary>
+            <typeparam name="T">The type of the property to get</typeparam>
+            <param name="property">The property to get</param>
+        </member>
+        <member name="T:cfgConfig.Core.Configuration.KeyValuePair.KeyValueConfigurationType">
+            <summary>
+            Represents a configuration type that is based on key-value pairs
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.KeyValuePair.KeyValueConfigurationType.Get``1(System.Object)">
+            <summary>
+            Gets a property
+            </summary>
+            <typeparam name="T">The type of the property to get</typeparam>
+            <param name="property">The property to get</param>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.KeyValuePair.KeyValueConfigurationType.Read(System.IO.Stream)">
+            <summary>
+            Reads the configuration type and returns the object result
+            </summary>
+            <param name="stream">The stream to read the configuration from</param>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.KeyValuePair.KeyValueConfigurationType.Write(System.IO.Stream)">
+            <summary>
+            Writes the configuration to the source stream
+            </summary>
+            <param name="stream">The source stream to write the configuration to</param>
+        </member>
+        <member name="T:cfgConfig.Core.Configuration.KeyValuePair.KeyValueConfigurationTypeExtensions">
+            <summary>
+            Extensions methods to work with <see cref="T:cfgConfig.Core.Configuration.KeyValuePair.KeyValueConfigurationType"/>
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Configuration.KeyValuePair.KeyValueConfigurationTypeExtensions.WithKeyValueType(cfgConfig.Core.Environment.ConfigEnvironmentBuilder,cfgConfig.Core.Configuration.KeyValuePair.KeyValueConfigurationType)">
+            <summary>
+            Adds a <see cref="T:cfgConfig.Core.Configuration.KeyValuePair.KeyValueConfigurationType"/> to the list of implemented types
+            </summary>
+            <param name="environment">The environment where the type will be implemented</param>
+            <param name="implementation">The implementation type instance</param>
+        </member>
+        <member name="T:cfgConfig.Core.Configuration.ObjectBased.IConfig">
+            <summary>
+            Interface that all configurations types must implement
+            </summary>
+        </member>
+        <member name="T:cfgConfig.Core.Configuration.ObjectBased.ObjectConfigurationType">
+            <summary>
+            Represents a configuration type that saves objects to a file and then loads them to the memory
+            </summary>
+        </member>
+        <member name="T:cfgConfig.Core.Environment.DefaultConfigEnvironment">
+            <summary>
+            The default configuration environment
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Environment.DefaultConfigEnvironment.Path">
+            <summary>
+            The path of the configuration environment
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:cfgConfig.Core.Environment.DefaultConfigEnvironment.Provider" -->
+        <member name="P:cfgConfig.Core.Environment.DefaultConfigEnvironment.Name">
+            <summary>
+            The name of the environment
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Environment.DefaultConfigEnvironment.Count">
+            <summary>
+            The amount of configurations added
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Environment.DefaultConfigEnvironment.GetConfiguration(System.String)">
+            <summary>
+            Gets a generic configuration from its name
+            </summary>
+            <param name="configurationName">The name of the configuration to get</param>
+        </member>
+        <member name="M:cfgConfig.Core.Environment.DefaultConfigEnvironment.GetConfiguration``1(System.String)">
+            <summary>
+            Gets a specific configuration from its type
+            </summary>
+            <typeparam name="TConfiguration">The type of configuration to get</typeparam>
+            <param name="configurationName">The name of the configuration to get</param>
+        </member>
+        <member name="T:cfgConfig.Core.Environment.ConfigEnvironmentBuilder">
+            <summary>
+            Represents a configuration environment which contains configuration files
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Environment.ConfigEnvironmentBuilder.#ctor(System.String)">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Environment.ConfigEnvironmentBuilder.AddConfiguration``1(System.String)">
+            <summary>
+            Creates a new configuration source with a <see cref="T:cfgConfig.Core.Configuration.IConfigurationType"/>
+            </summary>
+            <typeparam name="TConfigType">The <see cref="T:cfgConfig.Core.Configuration.IConfigurationType"/> type</typeparam>
+            <param name="configurationName">The name of the configuration to use</param>
+        </member>
+        <member name="M:cfgConfig.Core.Environment.ConfigEnvironmentBuilder.Build">
+            <summary>
+            Builds the environment
+            </summary>
+        </member>
+        <member name="T:cfgConfig.Core.Environment.IConfigEnvironmentBuilder">
+            <summary>
+            Interface that helps building <see cref="T:cfgConfig.Core.Environment.IConfigEnvironment"/>s
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Environment.IConfigEnvironmentBuilder.Build">
+            <summary>
+            Builds the environment
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Environment.IConfigEnvironmentBuilder.AddConfiguration``1(System.String)">
+            <summary>
+            Creates a new configuration source with a <see cref="T:cfgConfig.Core.Configuration.IConfigurationType"/>
+            </summary>
+            <typeparam name="TConfigType">The <see cref="T:cfgConfig.Core.Configuration.IConfigurationType"/> type</typeparam>
+            <param name="configurationName">The name of the configuration to use</param>
+        </member>
+        <member name="T:cfgConfig.Core.Environment.IConfigEnvironment">
+            <summary>
+            Represents a configuration environment with its methods
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Environment.IConfigEnvironment.Path">
+            <summary>
+            The path of the configuration environment
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Environment.IConfigEnvironment.Provider">
+            <summary>
+            The configuration provider for this environment
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Environment.IConfigEnvironment.Name">
+            <summary>
+            The name of the environment
+            </summary>
+        </member>
+        <member name="P:cfgConfig.Core.Environment.IConfigEnvironment.Count">
+            <summary>
+            The amount of configurations added
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Environment.IConfigEnvironment.GetConfiguration(System.String)">
+            <summary>
+            Gets a generic configuration from its name
+            </summary>
+            <param name="configurationName">The name of the configuration to get</param>
+        </member>
+        <member name="M:cfgConfig.Core.Environment.IConfigEnvironment.GetConfiguration``1(System.String)">
+            <summary>
+            Gets a specific configuration from its type
+            </summary>
+            <typeparam name="TConfiguration">The type of configuration to get</typeparam>
+            <param name="configurationName">The name of the configuration to get</param>
+        </member>
+        <member name="T:cfgConfig.Core.Exceptions.WrongConfigurationTypeException">
+            <summary>
+            Exception thrown when is tried to get a configuration with a wrong type
+            </summary>
+        </member>
+        <member name="M:cfgConfig.Core.Exceptions.WrongConfigurationTypeException.#ctor(System.String)">
+            <summary>
+            Creates a new <see cref="T:cfgConfig.Core.Exceptions.WrongConfigurationTypeException"/> with an error message
+            </summary>
+            <param name="message">The error message</param>
+        </member>
+    </members>
+</doc>
